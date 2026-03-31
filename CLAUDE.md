@@ -21,8 +21,8 @@ Static site — plain HTML/CSS/JS with no build step. Cloudflare Pages serves fi
 | File | Route | Purpose |
 |------|-------|---------|
 | `index.html` | `/` | Landing page — hero, features, privacy, pricing, CTA |
-| `privacy-policy/index.html` | `/privacy-policy` | Privacy policy with Apple-required subscription auto-renewal language |
-| `terms/index.html` | `/terms` | Terms of service with medical disclaimer and billing terms |
+| `privacy-policy.html` | `/privacy-policy.html` | Privacy policy with Apple-required subscription auto-renewal language |
+| `terms.html` | `/terms.html` | Terms of service with medical disclaimer and billing terms |
 
 ### Design System
 
