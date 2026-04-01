@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Marketing landing page for **SymptomTrk**, a privacy-first health tracking app. The site hosts a landing page, privacy policy, and terms of service — all required before the v1.5.0 App Store subscription submission.
+Marketing landing page for **My Symptom Tracker**, a privacy-first health tracking app. The site hosts a landing page, privacy policy, and terms of service — all required before the v1.5.0 App Store subscription submission.
 
 - **Hosting:** Cloudflare Pages (auto-deploy from `main` branch on GitHub)
 - **Repo:** `github.com/danu-vino/symptmtracker-landing`
@@ -47,7 +47,7 @@ Cloudflare Pages auto-deploys from the `main` branch. Push to `main` to deploy.
 
 | Element | Value |
 |---------|-------|
-| Display name | SymptomTrk |
+| Display name | My Symptom Tracker |
 | Primary color | `#1B434D` (teal) |
 | Tagline | "Your health, tracked with care" |
 | Contact | danuvino@gmail.com |
