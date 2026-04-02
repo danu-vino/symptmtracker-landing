@@ -8,7 +8,7 @@
   <meta name="keywords" content="symptom tracker, health tracker, mood tracker, privacy health app, daily check-in, iOS health app, symptom diary">
   <meta name="author" content="Venture Melody">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#1B434D">
+  <meta name="theme-color" content="#0B1A1E">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
@@ -77,7 +77,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ─── Reset & Base ────────────────────────────── */
@@ -85,9 +85,9 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'Outfit', system-ui, sans-serif;
-      color: var(--text);
-      background: var(--bg);
+      font-family: var(--font-body);
+      color: var(--cream);
+      background: var(--bg-deep);
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -98,60 +98,43 @@
     ul { list-style: none; }
     button { font: inherit; cursor: pointer; border: none; background: none; }
 
-    /* ─── Custom Properties ───────────────────────── */
+    /* ─── Design Tokens ──────────────────────────── */
     :root {
-      --teal-darkest: #0F2A31;
-      --teal-dark: #163840;
-      --teal: #1B434D;
-      --teal-light: #266274;
-      --teal-lighter: #327E96;
-      --teal-wash: #E8F3F6;
+      --bg-deep: #0B1A1E;
+      --bg: #0F2024;
+      --bg-card: #112628;
+      --bg-card-hover: #163236;
 
-      --green: #7CB342;
-      --green-light: #A8E6A3;
-      --green-pale: #E8F5E8;
-      --green-glow: rgba(124, 179, 66, 0.25);
+      --border: rgba(90, 172, 184, 0.08);
+      --border-hover: rgba(90, 172, 184, 0.18);
 
-      --gold: #D4A847;
+      --teal: #5AACB8;
+      --teal-dim: rgba(90, 172, 184, 0.15);
+      --teal-glow: rgba(90, 172, 184, 0.25);
 
-      --bg: #FAFBF9;
-      --bg-warm: #F5F7F3;
-      --surface: #FFFFFF;
-      --text: #1A1F1C;
-      --text-muted: #5A6660;
-      --text-light: #8A9590;
-      --border: #E2E8E4;
+      --sage: #8DB99A;
+      --sage-dim: rgba(141, 185, 154, 0.12);
 
+      --cream: #E8ECE9;
+      --text-secondary: rgba(232, 236, 233, 0.6);
+      --text-faint: rgba(232, 236, 233, 0.35);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+
+      --radius: 16px;
       --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      --radius-xl: 36px;
-
-      --shadow-sm: 0 1px 3px rgba(27,67,77,0.05), 0 4px 12px rgba(27,67,77,0.03);
-      --shadow-md: 0 2px 8px rgba(27,67,77,0.06), 0 12px 32px rgba(27,67,77,0.05);
-      --shadow-lg: 0 4px 12px rgba(27,67,77,0.08), 0 24px 48px rgba(27,67,77,0.06);
-      --shadow-xl: 0 8px 24px rgba(27,67,77,0.1), 0 32px 64px rgba(27,67,77,0.08);
-
-      --font-display: 'Instrument Serif', Georgia, serif;
-      --font-body: 'Outfit', system-ui, sans-serif;
+      --radius-pill: 100px;
 
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* ─── Typography ─────────────────────────────── */
     .serif { font-family: var(--font-display); }
-
-    h1, h2, h3, h4 {
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
 
     /* ─── Utility ────────────────────────────────── */
     .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -167,84 +150,61 @@
       color: var(--teal);
       margin-bottom: 16px;
     }
-
-    .section-label::before {
-      content: '';
-      width: 24px;
-      height: 2px;
-      background: var(--green);
-      border-radius: 1px;
-    }
-
-    /* ─── Buttons ────────────────────────────────── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 14px;
-      font-weight: 600;
-      font-size: 0.9375rem;
-      transition: all 0.3s var(--ease-out);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
+    .section-label .dot {
+      width: 6px;
+      height: 6px;
       background: var(--teal);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(27,67,77,0.2), 0 0 0 0 rgba(27,67,77,0);
-    }
-    .btn-primary:hover {
-      background: var(--teal-light);
-      box-shadow: 0 4px 16px rgba(27,67,77,0.25), 0 0 0 3px rgba(27,67,77,0.08);
-      transform: translateY(-1px);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
     }
 
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--teal);
-      border: 1.5px solid var(--border);
+    /* ─── Ambient Orbs ───────────────────────────── */
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
-    .btn-secondary:hover {
-      border-color: var(--teal);
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-1px);
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.1;
+      animation: float 20s ease-in-out infinite;
     }
-
-    .btn-ghost {
-      color: var(--teal);
-      padding: 14px 16px;
+    .ambient-orb.teal-1 {
+      width: 600px; height: 600px;
+      background: var(--teal);
+      top: -10%; left: -5%;
     }
-    .btn-ghost:hover { background: rgba(27,67,77,0.05); }
-
-    .btn-light {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      border: 1.5px solid rgba(255,255,255,0.2);
+    .ambient-orb.sage-1 {
+      width: 500px; height: 500px;
+      background: var(--sage);
+      top: 30%; right: -10%;
+      animation-delay: -7s;
     }
-    .btn-light:hover {
-      background: rgba(255,255,255,0.2);
-      border-color: rgba(255,255,255,0.35);
-      transform: translateY(-1px);
+    .ambient-orb.teal-2 {
+      width: 400px; height: 400px;
+      background: var(--teal);
+      bottom: 10%; left: 20%;
+      animation-delay: -13s;
     }
 
     /* ─── Navigation ─────────────────────────────── */
     .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 16px 0;
-      transition: all 0.4s var(--ease-out);
+      padding: 18px 0;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease;
     }
     .nav.scrolled {
-      padding: 10px 0;
-      background: rgba(250,251,249,0.85);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      border-bottom: 1px solid rgba(226,232,228,0.6);
+      padding: 12px 0;
+      background: rgba(11, 26, 30, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
@@ -256,43 +216,55 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: var(--teal);
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--cream);
     }
-
     .nav-logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px; height: 38px;
       border-radius: 10px;
       overflow: hidden;
     }
+    .nav-logo-icon img { width: 100%; height: 100%; object-fit: cover; }
 
-    .nav-logo-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 28px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 28px;
     }
-
     .nav-links a {
-      padding: 8px 16px;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      color: var(--text-muted);
-      border-radius: 10px;
-      transition: all 0.2s ease;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--teal); background: rgba(27,67,77,0.04); }
+    .nav-links a:hover { color: var(--cream); }
 
-    .nav-cta { display: flex; align-items: center; gap: 8px; }
-    .nav-cta .btn { padding: 10px 22px; font-size: 0.875rem; }
+    .nav-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      background: var(--teal-dim);
+      color: var(--teal);
+      border: 1px solid rgba(90, 172, 184, 0.2);
+      border-radius: var(--radius-pill);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .nav-cta-btn:hover {
+      background: var(--teal-glow);
+      border-color: var(--teal);
+      transform: translateY(-1px);
+    }
 
     /* Hamburger */
     .hamburger {
@@ -303,9 +275,8 @@
       z-index: 110;
     }
     .hamburger span {
-      width: 22px;
-      height: 2px;
-      background: var(--teal);
+      width: 22px; height: 2px;
+      background: var(--cream);
       border-radius: 2px;
       transition: all 0.3s var(--ease-out);
       transform-origin: center;
@@ -314,12 +285,11 @@
     .hamburger.active span:nth-child(2) { opacity: 0; }
     .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* Mobile nav */
     .mobile-menu {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(250,251,249,0.97);
+      background: rgba(11, 26, 30, 0.97);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       z-index: 105;
@@ -335,68 +305,35 @@
     .mobile-menu a {
       font-size: 1.25rem;
       font-weight: 500;
-      color: var(--text);
+      color: var(--cream);
       padding: 12px 24px;
       border-radius: 12px;
       transition: background 0.2s ease;
     }
-    .mobile-menu a:hover { background: rgba(27,67,77,0.06); }
-    .mobile-menu .btn { margin-top: 16px; }
+    .mobile-menu a:hover { background: rgba(90, 172, 184, 0.08); }
+    .mobile-menu .nav-cta-btn { margin-top: 16px; }
 
     /* ─── Hero ───────────────────────────────────── */
     .hero {
       position: relative;
-      padding: 140px 0 100px;
-      overflow: hidden;
       min-height: 100svh;
       display: flex;
       align-items: center;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 15% 45%, rgba(27,67,77,0.055) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 85% 25%, rgba(168,230,163,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 40% at 55% 85%, rgba(124,179,66,0.035) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    /* Decorative blobs */
-    .hero-blob {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(80px);
-      opacity: 0.5;
-    }
-    .hero-blob-1 {
-      width: 500px; height: 500px;
-      background: rgba(27,67,77,0.06);
-      top: -150px; right: -100px;
-      animation: blobDrift 20s ease-in-out infinite;
-    }
-    .hero-blob-2 {
-      width: 350px; height: 350px;
-      background: rgba(168,230,163,0.08);
-      bottom: -80px; left: -50px;
-      animation: blobDrift 16s ease-in-out infinite reverse;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 0 60px;
+      overflow: hidden;
     }
 
     .hero-inner {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 60px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       position: relative;
       z-index: 1;
     }
 
-    .hero-content { max-width: 560px; }
-
-    .hero-overline {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -404,188 +341,148 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--green);
-      margin-bottom: 20px;
+      color: var(--teal);
+      margin-bottom: 28px;
     }
-    .hero-overline::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: var(--green);
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--teal);
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
     }
 
+    .hero-icon {
+      width: 88px; height: 88px;
+      border-radius: 22px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 32px rgba(90, 172, 184, 0.2);
+    }
+    .hero-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+    .hero-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
     .hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(2.75rem, 6vw, 4.25rem);
+      font-size: clamp(2.75rem, 6vw, 4.5rem);
       font-weight: 400;
       line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--teal-darkest);
+      letter-spacing: -0.02em;
+      color: var(--cream);
       margin-bottom: 24px;
+      max-width: 640px;
     }
     .hero h1 em {
       font-style: italic;
+      font-weight: 300;
       color: var(--teal);
     }
 
-    .hero-description {
-      font-size: 1.125rem;
+    .hero-sub {
+      font-size: 1.0625rem;
       line-height: 1.7;
-      color: var(--text-muted);
+      color: var(--text-secondary);
+      max-width: 520px;
       margin-bottom: 36px;
-      max-width: 480px;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 40px;
-    }
+    .hero-cta { margin-bottom: 16px; }
 
     .store-badge {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 24px;
-      background: var(--teal-darkest);
-      color: #fff;
-      border-radius: 14px;
+      padding: 14px 28px;
+      background: var(--teal-dim);
+      color: var(--cream);
+      border: 1px solid rgba(90, 172, 184, 0.2);
+      border-radius: var(--radius-pill);
       font-size: 0.9375rem;
       font-weight: 500;
-      transition: all 0.3s var(--ease-out);
+      transition: all 0.3s ease;
     }
     .store-badge:hover {
-      background: var(--teal);
+      background: var(--teal-glow);
+      border-color: var(--teal);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 8px 24px rgba(90, 172, 184, 0.15);
     }
     .store-badge-icon { font-size: 1.4rem; line-height: 1; }
-    .store-badge-text { display: flex; flex-direction: column; line-height: 1.2; }
-    .store-badge-label { font-size: 0.6875rem; font-weight: 400; opacity: 0.75; }
+    .store-badge-text { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+    .store-badge-label { font-size: 0.6875rem; font-weight: 400; opacity: 0.6; }
     .store-badge-store { font-weight: 600; }
 
     .hero-note {
       font-size: 0.8125rem;
-      color: var(--text-light);
+      color: var(--text-faint);
+      margin-bottom: 56px;
     }
-    .hero-note strong { color: var(--green); font-weight: 600; }
+    .hero-note strong { color: var(--sage); font-weight: 600; }
 
-    /* Phone frame with real screenshot */
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-
-    .phone-frame {
-      width: 260px;
-      height: 520px;
-      background: #1A1E1F;
+    .hero-phone { perspective: 1000px; }
+    .hero-phone .phone-frame {
+      width: 280px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 40px;
-      padding: 12px;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        var(--shadow-xl),
-        inset 0 0 0 1px rgba(255,255,255,0.08);
-      animation: phoneFloat 5s ease-in-out infinite;
+      padding: 10px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 8px 20px rgba(90, 172, 184, 0.08);
+      transform: rotateY(-3deg) rotateX(2deg);
+      transition: transform 0.6s ease;
     }
-
-    .phone-frame img {
+    .hero-phone .phone-frame:hover {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+    }
+    .hero-phone .phone-frame img {
       width: 100%;
       border-radius: 30px;
       display: block;
     }
 
-    /* Floating accent elements */
-    .shield-float {
-      position: absolute;
-      bottom: 80px;
-      left: -36px;
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, var(--green), var(--green-light));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      box-shadow: 0 8px 24px var(--green-glow);
-      animation: shieldFloat 4s ease-in-out infinite;
-      z-index: 3;
-    }
-    .shield-float::before,
-    .shield-float::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      border: 1.5px solid rgba(124,179,66,0.25);
-      animation: pulseRing 3s ease-out infinite;
-    }
-    .shield-float::before { inset: -10px; }
-    .shield-float::after { inset: -22px; animation-delay: 0.8s; opacity: 0.6; }
-
-    .streak-float {
-      position: absolute;
-      top: 100px;
-      right: -24px;
-      background: var(--surface);
-      border-radius: 14px;
-      padding: 10px 14px;
-      box-shadow: var(--shadow-md);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text);
-      animation: shieldFloat 5s ease-in-out infinite 1s;
-      z-index: 3;
-    }
-    .streak-float span { font-size: 1.1rem; }
-
     /* ─── Trust Bar ──────────────────────────────── */
     .trust-bar {
       padding: 28px 0;
-      background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
     }
-
     .trust-bar-inner {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
       gap: 16px 40px;
     }
-
     .trust-item {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
     .trust-item-icon {
       display: flex;
       align-items: center;
       color: var(--teal);
     }
-    .trust-item-icon svg {
-      width: 18px;
-      height: 18px;
-    }
+    .trust-item-icon svg { width: 18px; height: 18px; }
 
-    /* ─── App Showcase ───────────────────────────── */
+    /* ─── Showcase Sections ──────────────────────── */
     .showcase-section {
       padding: 100px 0;
+      position: relative;
+      z-index: 1;
     }
     .showcase-section.alt-bg {
-      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
+      background: rgba(255,255,255,0.01);
     }
 
     .showcase-inner {
@@ -595,22 +492,20 @@
       align-items: center;
     }
 
-    .showcase-content {
-      max-width: 480px;
-    }
+    .showcase-content { max-width: 480px; }
 
     .showcase-content h2 {
+      font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 2.75rem);
-      margin-bottom: 16px;
-      color: var(--teal-darkest);
-    }
-    .showcase-content h2 .serif {
       font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
     }
 
     .showcase-content > p {
       font-size: 1.0625rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.65;
       margin-bottom: 28px;
     }
@@ -628,9 +523,8 @@
     }
 
     .showcase-feature-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--teal-wash);
+      width: 40px; height: 40px;
+      background: var(--teal-dim);
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -638,21 +532,16 @@
       flex-shrink: 0;
       color: var(--teal);
     }
-    .showcase-feature-icon svg {
-      width: 20px;
-      height: 20px;
-    }
+    .showcase-feature-icon svg { width: 20px; height: 20px; }
 
     .showcase-feature h4 {
       font-size: 0.9375rem;
       font-weight: 600;
-      color: var(--text);
       margin-bottom: 2px;
     }
-
     .showcase-feature p {
       font-size: 0.875rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.5;
     }
 
@@ -663,23 +552,27 @@
 
     .showcase-phone {
       width: 260px;
-      height: 520px;
-      overflow: hidden;
-      background: #1A1E1F;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 40px;
-      padding: 12px;
-      box-shadow: var(--shadow-xl), inset 0 0 0 1px rgba(255,255,255,0.08);
+      padding: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      transition: transform 0.5s ease;
     }
-
+    .showcase-phone:hover {
+      transform: translateY(-6px) scale(1.01);
+    }
     .showcase-phone img {
       width: 100%;
       border-radius: 30px;
       display: block;
     }
 
-    /* ─── Features Grid ──────────────────────────── */
+    /* ─── Feature Grid ───────────────────────────── */
     .features-section {
       padding: 100px 0;
+      position: relative;
+      z-index: 1;
     }
 
     .section-header {
@@ -687,19 +580,15 @@
       max-width: 580px;
       margin: 0 auto 56px;
     }
-
     .section-header h2 {
+      font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 2.75rem);
-      margin-bottom: 16px;
-      color: var(--teal-darkest);
-    }
-    .section-header h2 .serif {
       font-weight: 400;
+      margin-bottom: 16px;
     }
-
     .section-header p {
       font-size: 1.0625rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.6;
     }
 
@@ -710,67 +599,55 @@
     }
 
     .feature-card {
-      background: var(--surface);
-      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border-radius: var(--radius);
       padding: 28px;
       border: 1px solid var(--border);
-      transition: all 0.35s var(--ease-out);
+      transition: all 0.35s ease;
       position: relative;
       overflow: hidden;
     }
     .feature-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 3px;
-      height: 100%;
-      background: var(--green);
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--teal);
       border-radius: 0 2px 2px 0;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
     .feature-card:hover {
-      border-color: rgba(124,179,66,0.3);
-      box-shadow: var(--shadow-md);
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
       transform: translateY(-2px);
     }
     .feature-card:hover::before { opacity: 1; }
 
     .feature-icon {
       margin-bottom: 14px;
-      line-height: 1;
       color: var(--teal);
     }
-    .feature-icon svg {
-      width: 28px;
-      height: 28px;
-    }
+    .feature-icon svg { width: 28px; height: 28px; }
 
     .feature-card h3 {
       font-size: 1.0625rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--text);
     }
-
     .feature-card p {
       font-size: 0.9375rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.55;
-    }
-
-    /* Pro section variant */
-    .pro-section {
-      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
     }
 
     .pro-badge-inline {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      background: linear-gradient(135deg, var(--teal), #4A9DA8);
       color: #fff;
+      font-family: var(--font-body);
       font-size: 0.6875rem;
       font-weight: 700;
       padding: 3px 8px;
@@ -781,55 +658,33 @@
       margin-left: 8px;
     }
 
-    .feature-card.pro-card::before { background: var(--teal); }
-    .feature-card.pro-card:hover { border-color: rgba(27,67,77,0.25); }
-
     /* ─── Privacy ────────────────────────────────── */
     .privacy-section {
       padding: 100px 0;
-      background: linear-gradient(150deg, var(--teal-darkest) 0%, var(--teal) 40%, var(--teal-dark) 100%);
-      color: #fff;
+      background: linear-gradient(180deg, rgba(90,172,184,0.04) 0%, rgba(11,26,30,0) 100%);
       position: relative;
+      z-index: 1;
       overflow: hidden;
     }
 
-    /* Grain texture */
-    .privacy-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.025;
-      pointer-events: none;
-    }
-
-    /* Decorative circles */
+    /* Decorative concentric circles */
     .privacy-section::after {
       content: '';
       position: absolute;
-      width: 500px;
-      height: 500px;
-      border: 1px solid rgba(255,255,255,0.04);
+      width: 500px; height: 500px;
+      border: 1px solid rgba(90,172,184,0.06);
       border-radius: 50%;
-      top: -200px;
-      right: -150px;
+      top: -200px; right: -150px;
       pointer-events: none;
     }
 
-    .privacy-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .privacy-inner { position: relative; z-index: 1; }
 
     .privacy-header {
       text-align: center;
       max-width: 620px;
       margin: 0 auto 60px;
     }
-
-    .privacy-header .section-label { color: var(--green-light); }
-    .privacy-header .section-label::before { background: var(--green-light); }
-
     .privacy-header h2 {
       font-family: var(--font-display);
       font-weight: 400;
@@ -837,10 +692,9 @@
       line-height: 1.1;
       margin-bottom: 20px;
     }
-
     .privacy-header p {
       font-size: 1.0625rem;
-      color: rgba(255,255,255,0.7);
+      color: var(--text-secondary);
       line-height: 1.65;
     }
 
@@ -851,51 +705,46 @@
     }
 
     .privacy-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 28px;
-      transition: all 0.35s var(--ease-out);
-      backdrop-filter: blur(8px);
+      transition: all 0.35s ease;
     }
     .privacy-card:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.14);
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
       transform: translateY(-2px);
     }
 
     .privacy-card-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(168,230,163,0.12);
+      width: 48px; height: 48px;
+      background: var(--sage-dim);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 16px;
-      color: var(--green-light);
+      color: var(--sage);
     }
-    .privacy-card-icon svg {
-      width: 24px;
-      height: 24px;
-    }
+    .privacy-card-icon svg { width: 24px; height: 24px; }
 
     .privacy-card h3 {
       font-size: 1.0625rem;
       font-weight: 600;
       margin-bottom: 8px;
     }
-
     .privacy-card p {
       font-size: 0.9375rem;
-      color: rgba(255,255,255,0.65);
+      color: var(--text-secondary);
       line-height: 1.55;
     }
 
     /* ─── Pricing ────────────────────────────────── */
     .pricing-section {
       padding: 100px 0;
-      background: var(--bg);
+      position: relative;
+      z-index: 1;
     }
 
     .pricing-grid {
@@ -907,26 +756,26 @@
     }
 
     .pricing-card {
-      background: var(--surface);
+      background: var(--bg-card);
       border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       padding: 36px 28px;
       display: flex;
       flex-direction: column;
-      transition: all 0.35s var(--ease-out);
+      transition: all 0.35s ease;
       position: relative;
     }
     .pricing-card:hover {
-      box-shadow: var(--shadow-md);
+      background: var(--bg-card-hover);
       transform: translateY(-3px);
     }
 
     .pricing-card.featured {
       border-color: var(--teal);
-      box-shadow: var(--shadow-lg), 0 0 0 1px var(--teal);
+      box-shadow: 0 0 40px rgba(90, 172, 184, 0.08), 0 0 0 1px var(--teal);
     }
     .pricing-card.featured:hover {
-      box-shadow: var(--shadow-xl), 0 0 0 1px var(--teal);
+      box-shadow: 0 0 60px rgba(90, 172, 184, 0.12), 0 0 0 1px var(--teal);
     }
 
     .pricing-popular {
@@ -935,7 +784,7 @@
       left: 50%;
       transform: translateX(-50%);
       background: var(--teal);
-      color: #fff;
+      color: var(--bg-deep);
       font-size: 0.75rem;
       font-weight: 700;
       padding: 5px 16px;
@@ -948,7 +797,7 @@
     .pricing-name {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 12px;
     }
 
@@ -961,13 +810,12 @@
     .pricing-amount {
       font-size: 2.75rem;
       font-weight: 700;
-      color: var(--text);
       line-height: 1;
       letter-spacing: -0.03em;
     }
     .pricing-period {
       font-size: 0.9375rem;
-      color: var(--text-light);
+      color: var(--text-faint);
       font-weight: 500;
     }
 
@@ -975,8 +823,8 @@
       display: inline-block;
       font-size: 0.8125rem;
       font-weight: 600;
-      color: var(--green);
-      background: var(--green-pale);
+      color: var(--sage);
+      background: var(--sage-dim);
       padding: 3px 10px;
       border-radius: 6px;
       margin-bottom: 20px;
@@ -984,14 +832,13 @@
 
     .pricing-subtitle {
       font-size: 0.875rem;
-      color: var(--text-light);
+      color: var(--text-faint);
       margin-bottom: 20px;
       min-height: 20px;
     }
 
     .pricing-divider {
-      width: 100%;
-      height: 1px;
+      width: 100%; height: 1px;
       background: var(--border);
       margin: 4px 0 20px;
     }
@@ -1003,57 +850,94 @@
       gap: 12px;
       margin-bottom: 28px;
     }
-
     .pricing-feature {
       display: flex;
       align-items: flex-start;
       gap: 10px;
       font-size: 0.9375rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
     .pricing-feature::before {
       content: '\2713';
-      color: var(--green);
+      color: var(--sage);
       font-weight: 700;
       flex-shrink: 0;
       margin-top: 1px;
     }
 
-    .pricing-card .btn { width: 100%; justify-content: center; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 28px;
+      background: var(--teal);
+      color: var(--bg-deep);
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #6CBCC7;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(90, 172, 184, 0.2);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--cream);
+      border: 1.5px solid var(--border-hover);
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      transform: translateY(-1px);
+    }
 
     .pricing-note {
       text-align: center;
       margin-top: 24px;
       font-size: 0.8125rem;
-      color: var(--text-light);
+      color: var(--text-faint);
     }
 
     /* ─── CTA ────────────────────────────────────── */
     .cta-section {
       padding: 100px 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(27,67,77,0.04) 0%, transparent 70%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+      position: relative;
+      z-index: 1;
     }
 
-    .cta-inner {
+    .cta-card {
       text-align: center;
-      max-width: 560px;
+      max-width: 640px;
       margin: 0 auto;
+      padding: 64px 40px;
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(90,172,184,0.06) 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
     }
 
-    .cta-inner h2 {
+    .cta-card h2 {
       font-family: var(--font-display);
       font-weight: 400;
       font-size: clamp(2rem, 4.5vw, 3rem);
-      color: var(--teal-darkest);
-      margin-bottom: 16px;
       line-height: 1.1;
+      margin-bottom: 16px;
     }
-
-    .cta-inner p {
+    .cta-card p {
       font-size: 1.0625rem;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 36px;
       line-height: 1.6;
     }
@@ -1067,9 +951,11 @@
 
     /* ─── Footer ─────────────────────────────────── */
     .footer {
-      background: var(--teal-darkest);
-      color: rgba(255,255,255,0.6);
+      background: rgba(0,0,0,0.3);
+      color: var(--text-faint);
       padding: 48px 0 32px;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-inner {
@@ -1083,7 +969,7 @@
     .footer-logo {
       font-weight: 700;
       font-size: 1.125rem;
-      color: #fff;
+      color: var(--cream);
     }
 
     .footer-links {
@@ -1096,92 +982,68 @@
       font-size: 0.875rem;
       transition: color 0.2s ease;
     }
-    .footer-links a:hover { color: #fff; }
+    .footer-links a:hover { color: var(--cream); }
 
-    .footer-contact {
-      font-size: 0.8125rem;
-    }
-    .footer-contact a {
-      color: var(--green-light);
-      transition: color 0.2s ease;
-    }
-    .footer-contact a:hover { color: #fff; }
+    .footer-contact { font-size: 0.8125rem; }
+    .footer-contact a { color: var(--teal); transition: color 0.2s ease; }
+    .footer-contact a:hover { color: var(--cream); }
 
     .footer-disclaimer {
       font-size: 0.75rem;
       max-width: 480px;
       line-height: 1.5;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     .footer-bottom {
       font-size: 0.8125rem;
       padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid var(--border);
       width: 100%;
       text-align: center;
     }
 
     /* ─── Animations ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 15px) scale(0.95); }
     }
 
-    @keyframes phoneFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-
-    @keyframes shieldFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(3deg); }
-    }
-
-    @keyframes pulseRing {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(1.3); opacity: 0; }
-    }
-
-    @keyframes blobDrift {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(20px, -15px); }
-      66% { transform: translate(-10px, 10px); }
-    }
+    /* Staggered hero entrance */
+    .fadeUp { opacity: 0; animation: fadeUp 0.8s ease both; }
+    .d1 { animation-delay: 0s; }
+    .d2 { animation-delay: 0.1s; }
+    .d3 { animation-delay: 0.15s; }
+    .d4 { animation-delay: 0.25s; }
+    .d5 { animation-delay: 0.35s; }
+    .d6 { animation-delay: 0.45s; }
+    .d7 { animation-delay: 0.55s; }
 
     /* Scroll reveal */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
+      transform: translateY(24px);
       transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
     }
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-    .reveal-delay-4 { transition-delay: 0.32s; }
-    .reveal-delay-5 { transition-delay: 0.40s; }
-    .reveal-delay-6 { transition-delay: 0.48s; }
-
-    /* Hero entrance */
-    .hero-enter {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeIn 0.8s var(--ease-out) forwards;
-    }
-    .hero-enter-1 { animation-delay: 0.1s; }
-    .hero-enter-2 { animation-delay: 0.2s; }
-    .hero-enter-3 { animation-delay: 0.35s; }
-    .hero-enter-4 { animation-delay: 0.5s; }
-    .hero-enter-5 { animation-delay: 0.65s; }
-
-    @keyframes heroFadeIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+    .reveal-d5 { transition-delay: 0.40s; }
+    .reveal-d6 { transition-delay: 0.48s; }
 
     /* ─── Responsive ─────────────────────────────── */
     @media (min-width: 640px) {
@@ -1197,44 +1059,32 @@
     }
 
     @media (min-width: 1024px) {
-      .hero-inner {
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-      }
-      .hero { padding: 160px 0 120px; }
       .showcase-inner {
         grid-template-columns: 1fr 1fr;
         gap: 80px;
       }
-      .showcase-inner.reverse {
-        direction: rtl;
-      }
-      .showcase-inner.reverse > * {
-        direction: ltr;
-      }
+      .showcase-inner.reverse { direction: rtl; }
+      .showcase-inner.reverse > * { direction: ltr; }
       .features-grid { grid-template-columns: repeat(3, 1fr); }
       .features-grid.pro-grid { grid-template-columns: repeat(4, 1fr); }
       .privacy-grid { grid-template-columns: repeat(4, 1fr); }
-      .features-section { padding: 120px 0; }
-      .privacy-section { padding: 120px 0; }
-      .pricing-section { padding: 120px 0; }
+      .features-section,
+      .privacy-section,
+      .pricing-section,
       .showcase-section { padding: 120px 0; }
     }
 
     @media (max-width: 767px) {
       .nav-links { display: none; }
-      .nav-cta .btn-ghost { display: none; }
+      .nav-cta-btn { display: none; }
       .hamburger { display: flex; }
       .mobile-menu { display: flex; }
-      .phone-frame { width: 220px; height: 440px; border-radius: 34px; }
-      .shield-float { width: 48px; height: 48px; font-size: 1.1rem; left: -16px; bottom: 60px; }
-      .streak-float { right: -12px; top: 80px; padding: 8px 10px; font-size: 0.6875rem; }
+      .hero-phone .phone-frame { width: 240px; }
     }
 
     @media (max-width: 480px) {
       .hero { min-height: auto; padding: 120px 0 60px; }
-      .hero-inner { gap: 40px; }
-      .store-badge { flex: 1; min-width: 0; justify-content: center; }
+      .cta-card { padding: 48px 24px; }
     }
 
     /* ─── Accessibility ──────────────────────────── */
@@ -1245,7 +1095,7 @@
         transition-duration: 0.01ms !important;
       }
       html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; }
+      .reveal, .fadeUp { opacity: 1; transform: none; }
     }
 
     :focus-visible {
@@ -1256,10 +1106,8 @@
 
     .sr-only {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
       overflow: hidden;
       clip: rect(0,0,0,0);
       white-space: nowrap;
@@ -1269,22 +1117,28 @@
 </head>
 <body>
 
+  <!-- ─── Ambient Background ─────────────────── -->
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-orb teal-1"></div>
+    <div class="ambient-orb sage-1"></div>
+    <div class="ambient-orb teal-2"></div>
+  </div>
+
   <!-- ─── Navigation ──────────────────────────── -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="container nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Symaura home">
-        <div class="nav-logo-icon" aria-hidden="true"><img src="assets/symaura_icon.png" alt="" width="36" height="36"></div>
+        <div class="nav-logo-icon" aria-hidden="true"><img src="assets/symaura_icon.png" alt="" width="38" height="38"></div>
         Symaura
       </a>
 
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#pricing">Pricing</a>
-      </div>
-
-      <div class="nav-cta">
-        <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn btn-primary">Download</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="nav-cta-btn">Download</a>
       </div>
 
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -1298,42 +1152,36 @@
     <a href="#features">Features</a>
     <a href="#privacy">Privacy</a>
     <a href="#pricing">Pricing</a>
-    <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn btn-primary">Download</a>
+    <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="nav-cta-btn">Download</a>
   </div>
 
   <main>
     <!-- ─── Hero ────────────────────────────────── -->
     <section class="hero" id="hero">
-      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
-      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
-
       <div class="container hero-inner">
-        <div class="hero-content">
-          <div class="hero-overline hero-enter hero-enter-1" aria-hidden="true">A daily ritual for your body</div>
-          <h1 class="hero-enter hero-enter-2">Your health, tracked with <em>care.</em></h1>
-          <p class="hero-description hero-enter hero-enter-3">
-            A gentle daily check-in for how you're really feeling. Log symptoms, track your mood,
-            and discover patterns over time — all kept privately on your device.
-          </p>
-          <div class="hero-actions hero-enter hero-enter-4">
-            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="store-badge" aria-label="Download on the App Store">
-              <span class="store-badge-icon" aria-hidden="true">&#63743;</span>
-              <span class="store-badge-text">
-                <span class="store-badge-label">Download on the</span>
-                <span class="store-badge-store">App Store</span>
-              </span>
-            </a>
-          </div>
-          <p class="hero-note hero-enter hero-enter-5"><strong>Free to start</strong> — no account needed, ever</p>
+        <div class="hero-badge fadeUp d1"><span class="dot"></span> A daily ritual for your body</div>
+        <div class="hero-icon fadeUp d2">
+          <img src="assets/symaura_icon.png" alt="" width="88" height="88">
         </div>
-
-        <div class="hero-visual hero-enter hero-enter-5">
+        <div class="hero-brand fadeUp d3">Symaura</div>
+        <h1 class="fadeUp d4">Your health, tracked <br>with <em>care.</em></h1>
+        <p class="hero-sub fadeUp d5">
+          A gentle daily check-in for how you're really feeling. Log symptoms, track your mood,
+          and discover patterns over time — all kept privately on your device.
+        </p>
+        <div class="hero-cta fadeUp d6">
+          <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="store-badge" aria-label="Download on the App Store">
+            <span class="store-badge-icon" aria-hidden="true">&#63743;</span>
+            <span class="store-badge-text">
+              <span class="store-badge-label">Download on the</span>
+              <span class="store-badge-store">App Store</span>
+            </span>
+          </a>
+        </div>
+        <p class="hero-note fadeUp d6"><strong>Free to start</strong> — no account needed, ever</p>
+        <div class="hero-phone fadeUp d7">
           <div class="phone-frame">
             <img src="assets/checkin.png" alt="Symaura daily check-in screen showing mood selection and symptom tracking" loading="eager">
-          </div>
-          <div class="shield-float" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-          <div class="streak-float" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--green)" stroke="none"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.13-5.93 4-7.5-.25 2.5 1.3 4.5 1.3 4.5C9.5 9 11 5 13.45 2c.65 3 2.55 5 3.55 6 1 1 2 2.5 2 5 0 4.42-3.58 8-7 10z"/></svg> Build your streak
           </div>
         </div>
       </div>
@@ -1343,9 +1191,9 @@
     <div class="trust-bar" role="complementary" aria-label="Trust signals">
       <div class="container trust-bar-inner">
         <div class="trust-item reveal"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span> On-device encryption</div>
-        <div class="trust-item reveal reveal-delay-1"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/></svg></span> No accounts required</div>
-        <div class="trust-item reveal reveal-delay-2"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg></span> 100% local storage</div>
-        <div class="trust-item reveal reveal-delay-3"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> Biometric protection</div>
+        <div class="trust-item reveal reveal-d1"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/></svg></span> No accounts required</div>
+        <div class="trust-item reveal reveal-d2"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg></span> 100% local storage</div>
+        <div class="trust-item reveal reveal-d3"><span class="trust-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> Biometric protection</div>
       </div>
     </div>
 
@@ -1354,8 +1202,8 @@
       <div class="container">
         <div class="showcase-inner reveal">
           <div class="showcase-content">
-            <div class="section-label">How It Works</div>
-            <h2>One minute. <span class="serif">Every day.</span></h2>
+            <div class="section-label"><span class="dot"></span> How It Works</div>
+            <h2>One minute. <span class="serif"><em>Every day.</em></span></h2>
             <p>
               Open the app, tap how you feel, select any symptoms — done. The daily check-in is designed to be
               effortless so you'll actually stick with it. No typing required.
@@ -1398,8 +1246,8 @@
       <div class="container">
         <div class="showcase-inner reverse reveal">
           <div class="showcase-content">
-            <div class="section-label">Patterns & Trends</div>
-            <h2>See what your body <span class="serif">is telling you.</span></h2>
+            <div class="section-label"><span class="dot"></span> Patterns &amp; Trends</div>
+            <h2>See what your body <span class="serif"><em>is telling you.</em></span></h2>
             <p>
               Over time, your check-ins reveal patterns you might not notice on your own. Symaura connects
               the dots — showing you which symptoms appear together, how your mood shifts, and what your body's
@@ -1443,8 +1291,8 @@
       <div class="container">
         <div class="showcase-inner reveal">
           <div class="showcase-content">
-            <div class="section-label">Your Records</div>
-            <h2>Every day, <span class="serif">documented.</span></h2>
+            <div class="section-label"><span class="dot"></span> Your Records</div>
+            <h2>Every day, <span class="serif"><em>documented.</em></span></h2>
             <p>
               Scroll through your complete symptom history — each entry shows your mood, symptoms, and context
               from that day. When it's time for a doctor's visit, download a summary or export your full data.
@@ -1476,46 +1324,46 @@
     </section>
 
     <!-- ─── Pro Features ────────────────────────── -->
-    <section class="features-section pro-section">
+    <section class="features-section">
       <div class="container">
         <div class="section-header reveal">
-          <div class="section-label">Go Deeper</div>
-          <h2>Unlock more with <span class="serif">Pro</span> <span class="pro-badge-inline">Pro</span></h2>
+          <div class="section-label"><span class="dot"></span> Go Deeper</div>
+          <h2>Unlock more with <span class="serif"><em>Pro</em></span> <span class="pro-badge-inline">Pro</span></h2>
           <p>For those who want a deeper understanding of their health. AI-powered insights, full flexibility, and doctor-ready reports.</p>
         </div>
 
         <div class="features-grid pro-grid">
-          <article class="feature-card pro-card reveal reveal-delay-1">
+          <article class="feature-card reveal reveal-d1">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
             <h3>AI Health Chat</h3>
             <p>Ask about your symptom patterns and get insights grounded in your own data — never a diagnosis.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-2">
+          <article class="feature-card reveal reveal-d2">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
             <h3>Advanced Insights</h3>
             <p>Trend analysis, symptom correlations, and pattern detection across your full history.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-3">
+          <article class="feature-card reveal reveal-d3">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z"/></svg></div>
             <h3>Unlimited Logging</h3>
             <p>No cap on symptoms per entry — track as many as you need, every single day.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-4">
+          <article class="feature-card reveal reveal-d4">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="15 14 12 17 9 14"/></svg></div>
             <h3>Backdate Entries</h3>
             <p>Missed a day? Go back and log entries for days you couldn't check in.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-5">
+          <article class="feature-card reveal reveal-d5">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
             <h3>Edit History</h3>
             <p>Correct or update past entries whenever you need to — your record, your rules.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-6">
+          <article class="feature-card reveal reveal-d6">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
             <h3>Custom Symptoms</h3>
             <p>Add your own symptom types beyond the defaults. Track what matters to you.</p>
           </article>
-          <article class="feature-card pro-card reveal reveal-delay-1">
+          <article class="feature-card reveal reveal-d1">
             <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg></div>
             <h3>PDF Reports</h3>
             <p>Generate doctor-ready reports to bring to your next appointment.</p>
@@ -1525,12 +1373,12 @@
     </section>
 
     <!-- ─── Showcase: AI Chat ───────────────────── -->
-    <section class="showcase-section">
+    <section class="showcase-section alt-bg">
       <div class="container">
         <div class="showcase-inner reverse reveal">
           <div class="showcase-content">
-            <div class="section-label">AI-Powered</div>
-            <h2>Ask questions. <span class="serif">Get clarity.</span></h2>
+            <div class="section-label"><span class="dot"></span> AI-Powered</div>
+            <h2>Ask questions. <span class="serif"><em>Get clarity.</em></span></h2>
             <p>
               The AI assistant analyzes patterns, trends, and correlations in your recorded symptom data.
               It works strictly from your logs — no assumptions, no diagnoses. Just a thoughtful companion
@@ -1566,28 +1414,28 @@
     <section class="privacy-section" id="privacy">
       <div class="container privacy-inner">
         <div class="privacy-header reveal">
-          <div class="section-label">Privacy by Design</div>
+          <div class="section-label"><span class="dot"></span> Privacy by Design</div>
           <h2>Your body, your data. <br>Nobody else's.</h2>
           <p>Health data is among the most personal information you have. We built Symaura on a simple belief: it should stay yours — not ours, not advertisers', not anyone's.</p>
         </div>
 
         <div class="privacy-grid">
-          <article class="privacy-card reveal reveal-delay-1">
+          <article class="privacy-card reveal reveal-d1">
             <div class="privacy-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/><circle cx="12" cy="12" r="10"/></svg></div>
             <h3>Zero data collection</h3>
             <p>We don't collect, store, or transmit your health data. Full stop.</p>
           </article>
-          <article class="privacy-card reveal reveal-delay-2">
+          <article class="privacy-card reveal reveal-d2">
             <div class="privacy-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
             <h3>On-device encryption</h3>
             <p>Every entry is encrypted with device-bound keys. Your phone is the vault.</p>
           </article>
-          <article class="privacy-card reveal reveal-delay-3">
-            <div class="privacy-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="12" y1="11" x2="12" y2="17" stroke="none"/></svg></div>
+          <article class="privacy-card reveal reveal-d3">
+            <div class="privacy-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
             <h3>No sign-up required</h3>
             <p>No email, no password, no account. Open the app and start. That's it.</p>
           </article>
-          <article class="privacy-card reveal reveal-delay-4">
+          <article class="privacy-card reveal reveal-d4">
             <div class="privacy-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="3"/><circle cx="12" cy="15" r="2"/><path d="M12 13v-2"/><path d="M9.5 7.5h5"/></svg></div>
             <h3>Biometric lock</h3>
             <p>Face ID, Touch ID, or your device passcode guards access on every launch.</p>
@@ -1600,14 +1448,14 @@
     <section class="pricing-section" id="pricing">
       <div class="container">
         <div class="section-header reveal">
-          <div class="section-label">Pricing</div>
-          <h2>Free to start. <span class="serif">Grow when you're ready.</span></h2>
+          <div class="section-label"><span class="dot"></span> Pricing</div>
+          <h2>Free to start. <span class="serif"><em>Grow when you're ready.</em></span></h2>
           <p>Core tracking is always free. Upgrade for AI insights, unlimited logging, and more.</p>
         </div>
 
         <div class="pricing-grid">
           <!-- Free -->
-          <div class="pricing-card reveal reveal-delay-1">
+          <div class="pricing-card reveal reveal-d1">
             <div class="pricing-name">Free</div>
             <div class="pricing-price">
               <span class="pricing-amount">$0</span>
@@ -1621,11 +1469,11 @@
               <li class="pricing-feature">Full history view</li>
               <li class="pricing-feature">On-device encryption</li>
             </ul>
-            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn btn-secondary">Get Started Free</a>
+            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn-secondary">Get Started Free</a>
           </div>
 
           <!-- Annual (featured) -->
-          <div class="pricing-card featured reveal reveal-delay-2">
+          <div class="pricing-card featured reveal reveal-d2">
             <div class="pricing-popular">Best Value</div>
             <div class="pricing-name">Pro Annual</div>
             <div class="pricing-price">
@@ -1643,11 +1491,11 @@
               <li class="pricing-feature">Custom symptom types</li>
               <li class="pricing-feature">PDF reports for your doctor</li>
             </ul>
-            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn btn-primary">Start Pro Annual</a>
+            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn-primary">Start Pro Annual</a>
           </div>
 
           <!-- Monthly -->
-          <div class="pricing-card reveal reveal-delay-3">
+          <div class="pricing-card reveal reveal-d3">
             <div class="pricing-name">Pro Monthly</div>
             <div class="pricing-price">
               <span class="pricing-amount">$4.99</span>
@@ -1664,7 +1512,7 @@
               <li class="pricing-feature">Custom symptom types</li>
               <li class="pricing-feature">PDF reports for your doctor</li>
             </ul>
-            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn btn-secondary">Start Pro Monthly</a>
+            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="btn-secondary">Start Pro Monthly</a>
           </div>
         </div>
 
@@ -1674,18 +1522,20 @@
 
     <!-- ─── CTA ─────────────────────────────────── -->
     <section class="cta-section" id="download">
-      <div class="container cta-inner">
-        <div class="section-label reveal">Start Today</div>
-        <h2 class="reveal">Your health story <br>starts with day one.</h2>
-        <p class="reveal">Download Symaura and log your first check-in. It takes less than a minute.</p>
-        <div class="cta-badges reveal">
-          <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="store-badge" aria-label="Download on the App Store">
-            <span class="store-badge-icon" aria-hidden="true">&#63743;</span>
-            <span class="store-badge-text">
-              <span class="store-badge-label">Download on the</span>
-              <span class="store-badge-store">App Store</span>
-            </span>
-          </a>
+      <div class="container">
+        <div class="cta-card reveal">
+          <div class="section-label"><span class="dot"></span> Start Today</div>
+          <h2>Your health story <br>starts with day one.</h2>
+          <p>Download Symaura and log your first check-in. It takes less than a minute.</p>
+          <div class="cta-badges">
+            <a href="https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417" class="store-badge" aria-label="Download on the App Store">
+              <span class="store-badge-icon" aria-hidden="true">&#63743;</span>
+              <span class="store-badge-text">
+                <span class="store-badge-label">Download on the</span>
+                <span class="store-badge-store">App Store</span>
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1750,7 +1600,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     reveals.forEach(el => observer.observe(el));
 
