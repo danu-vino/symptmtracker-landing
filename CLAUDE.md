@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Marketing landing page for **My Symptom Tracker**, a privacy-first health tracking iOS app. The site hosts a landing page, privacy policy, and terms of service — required for the App Store subscription submission.
+Marketing landing page for **Symaura**, a privacy-first health tracking iOS app. The site hosts a landing page, privacy policy, and terms of service — required for the App Store subscription submission.
 
 - **Hosting:** Cloudflare Pages (auto-deploy from `main` branch on GitHub)
 - **App Store:** https://apps.apple.com/us/app/my-symptoms-tracker/id6747646417
@@ -54,7 +54,7 @@ Phone screenshots are displayed inside CSS phone frames (dark background + borde
 
 | Element | Value |
 |---------|-------|
-| Display name | My Symptom Tracker |
+| Display name | Symaura |
 | Primary color | `#1B434D` (teal) |
 | Tagline | "Your health, tracked with care" |
 | Contact | info@venturemelody.com |
